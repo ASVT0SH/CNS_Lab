@@ -69,9 +69,8 @@ int main(int argc, char *argv[])
     MobileApplicationHelper mobileApplicatonHelper(enbNodes, ueNodes, numberOfNodes);
     mobileApplicatonHelper.SetupMobilityModule(distance);
 
-    mobileApplicatonHelper.SetupDevices(lteHelper, epcHelper, ipv4RoutingHelper);
-    
-    
+    mobileApplicatonHelper.SetupDevices(lteHelper, epcHelper, ipv4RoutingHelper);    
+   
     uint16_t dlPort = 1234;
     uint16_t ulPort = 2000;
     uint16_t otherPort = 3000;
