@@ -21,8 +21,7 @@ int main(int argc, char *argv[])
     double interPacketInterval = 100;
     
     CommandLine cmd;
-    cmd.Parse(argc, argv);
-    
+    cmd.Parse(argc, argv);    
   
     LogComponentEnable ("LteHelper", LOG_LEVEL_INFO);
     
@@ -36,7 +35,6 @@ int main(int argc, char *argv[])
     cmd.Parse(argc, argv);
     Ptr<Node> pgw = epcHelper->GetPgwNode();
     
-    // Create a single RemoteHost
     NodeContainer remoteHostContainer;
     remoteHostContainer.Create(1);
     
@@ -45,7 +43,6 @@ int main(int argc, char *argv[])
     InternetStackHelper internet;
     internet.Install(remoteHostContainer);
     
-    // Create the Internet
     PointToPointHelper p2ph;
     p2ph.SetDeviceAttribute("DataRate", DataRateValue(DataRate("100Gb/s")));
     p2ph.SetDeviceAttribute("Mtu", UintegerValue(1500));
@@ -57,28 +54,24 @@ int main(int argc, char *argv[])
     ipv4h.SetBase("1.0.0.0", "255.0.0.0");
     Ipv4InterfaceContainer internetIpIfaces = ipv4h.Assign(internetDevices);
     
-    // interface 0 is localhost, 1 is the p2p device
     Ipv4Address remoteHostAddr = internetIpIfaces.GetAddress(1);
     
     Ipv4StaticRoutingHelper ipv4RoutingHelper;
     Ptr<Ipv4StaticRouting> remoteHostStaticRouting =
         ipv4RoutingHelper.GetStaticRouting(remoteHost->GetObject<Ipv4>());
     remoteHostStaticRouting->AddNetworkRouteTo(Ipv4Address("7.0.0.0"), Ipv4Mask("255.0.0.0"), 1);
-    
-    
+   
     NodeContainer ueNodes;
     NodeContainer enbNodes;
     enbNodes.Create(numberOfNodes);
     ueNodes.Create(numberOfNodes);
     
-    // Install Mobility Model
     MobileApplicationHelper mobileApplicatonHelper(enbNodes, ueNodes, numberOfNodes);
     mobileApplicatonHelper.SetupMobilityModule(distance);
 
-    // Install LTE Devices to the nodes
     mobileApplicatonHelper.SetupDevices(lteHelper, epcHelper, ipv4RoutingHelper);
     
-    // Install and start applications on UEs and remote host
+    
     uint16_t dlPort = 1234;
     uint16_t ulPort = 2000;
     uint16_t otherPort = 3000;
@@ -92,7 +85,6 @@ int main(int argc, char *argv[])
     clientApps.Start(Seconds(0.01));
     
     lteHelper->EnableTraces();
-    // Uncomment to enable PCAP tracing
     p2ph.EnablePcapAll("lena-epc-first");
 
     AsciiTraceHelper ascii;
@@ -100,8 +92,6 @@ int main(int argc, char *argv[])
     
     Simulator::Stop(Seconds(simTime));
     Simulator::Run();
-    /*GtkConfigStore config;
- config.ConfigureAttributes();*/
     Simulator::Destroy();
     return 0;
 }
