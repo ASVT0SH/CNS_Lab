@@ -5,26 +5,10 @@
 #include "ns3/wifi-module.h"
 #include "ns3/mobility-module.h"
 #include "ns3/internet-module.h"
-
-// Default Network Topology
-//
-// Number of wifi or csma nodes can be increased up to 250
-//                          |
-// -------------------------|----------------------------
-//   Wifi 10.1.3.0
-//                 AP
-//  *    *    *    *
-//  |    |    |    |    10.1.1.0
-// n5   n6   n7   n0 -------------- n1   
-//                   point-to-point  |    
-//                                   ================
-
 using namespace ns3;
-
 NS_LOG_COMPONENT_DEFINE ("ThirdScriptExample");
 
-int 
-main (int argc, char *argv[])
+int main (int argc, char *argv[])
 {
   bool verbose = true;
   uint32_t nWifi = 3;
@@ -66,24 +50,19 @@ main (int argc, char *argv[])
 
   WifiMacHelper mac;
   Ssid ssid = Ssid ("ns-3-ssid");
-  mac.SetType ("ns3::StaWifiMac",
-               "Ssid", SsidValue (ssid),
-               "ActiveProbing", BooleanValue (false));
+  mac.SetType ("ns3::StaWifiMac","Ssid", SsidValue (ssid),"ActiveProbing", BooleanValue (false));
 
   NetDeviceContainer staDevices;
   staDevices = wifi.Install (phy, mac, wifiStaNodes);
 
-  mac.SetType ("ns3::ApWifiMac",
-               "Ssid", SsidValue (ssid));
+  mac.SetType ("ns3::ApWifiMac","Ssid", SsidValue (ssid));
 
   NetDeviceContainer apDevices;
   apDevices = wifi.Install (phy, mac, wifiApNode);
 
   MobilityHelper mobility;
 
-  mobility.SetMobilityModel ("ns3::RandomWalk2dMobilityModel",
-                             "Bounds", RectangleValue (Rectangle (-500, 50, -50, 500)));
-
+  mobility.SetMobilityModel ("ns3::RandomWalk2dMobilityModel","Bounds", RectangleValue (Rectangle (-500, 50, -50, 500)));
   
   mobility.Install (wifiStaNodes);
 
