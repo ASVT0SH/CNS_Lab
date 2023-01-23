@@ -18,8 +18,9 @@ class UdpServer {
             String line;
             byte[] buffer;
             DatagramPacket datagramPacket;
-            System.out.println("Enter Messages to Send");
+
             while (true) {
+                System.out.println("Enter Messages to Send");
                 line = scanner.nextLine();
                 buffer = line.getBytes();
                 datagramPacket = new DatagramPacket(buffer, buffer.length, clientAddress, 1234);
@@ -32,5 +33,6 @@ class UdpServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        scanner.close();
     }
 }

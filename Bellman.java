@@ -34,9 +34,6 @@ class Bellman {
 
         System.out.println("Distance Vector");
         for (int i = 0; i < n; i++) {
-            if (i == dest - 1) {
-                continue;
-            }
             System.out.println("Distance from " + (i + 1) + " is " + distanceVector[i]);
         }
         System.out.println();

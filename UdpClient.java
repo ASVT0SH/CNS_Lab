@@ -13,12 +13,13 @@ class UdpClient {
             DatagramSocket datagramSocket = new DatagramSocket(1234);
             byte[] buffer;
             DatagramPacket datagramPacket;
-            System.out.println("Messages Received is:");
+
             while (true) {
+                System.out.println("Messages Received is:");
                 buffer = new byte[65535];
                 datagramPacket = new DatagramPacket(buffer, buffer.length);
                 datagramSocket.receive(datagramPacket);
-                String received = new String(buffer).trim();
+                String received = new String(buffer);
                 System.out.println(received);
                 if (received.equalsIgnoreCase("exit")) {
                     datagramSocket.close();
