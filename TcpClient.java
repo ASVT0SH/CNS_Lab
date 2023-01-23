@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-class Client {
+class TcpClient {
 
     public static void main(String[] args) {
         try {
