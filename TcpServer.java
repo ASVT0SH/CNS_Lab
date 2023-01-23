@@ -11,7 +11,7 @@ class TcpServer {
             ServerSocket serverSocket = new ServerSocket(1300);
             Socket socket = serverSocket.accept();
             Scanner socketScanner = new Scanner(socket.getInputStream());
-            String fileName = socketScanner.nextLine().trim();
+            String fileName = socketScanner.nextLine();
             PrintStream printStream = new PrintStream(socket.getOutputStream());
             File file = new File(fileName);
             if (file.exists()) {
