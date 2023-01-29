@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
     Ipv4Address remoteHostAddr = internetIpIfaces.GetAddress(1);
     
     Ipv4StaticRoutingHelper ipv4RoutingHelper;
+    
     Ptr<Ipv4StaticRouting> remoteHostStaticRouting =
         ipv4RoutingHelper.GetStaticRouting(remoteHost->GetObject<Ipv4>());
     remoteHostStaticRouting->AddNetworkRouteTo(Ipv4Address("7.0.0.0"), Ipv4Mask("255.0.0.0"), 1);
@@ -69,7 +70,7 @@ int main(int argc, char *argv[])
     MobileApplicationHelper mobileApplicatonHelper(enbNodes, ueNodes, numberOfNodes);
     mobileApplicatonHelper.SetupMobilityModule(distance);
 
-    mobileApplicatonHelper.SetupDevices(lteHelper, epcHelper, ipv4RoutingHelper);    
+    mobileApplicatonHelper.SetupDevices(lteHelper, epcHelper, ipv4RoutingHelper);   
    
     uint16_t dlPort = 1234;
     uint16_t ulPort = 2000;
